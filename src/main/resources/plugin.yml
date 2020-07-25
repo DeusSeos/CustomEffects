@@ -1,0 +1,5 @@
+name: CustomEffects
+version: ${project.version}
+main: deusseos.customeffects.CustomEffects
+api-version: 1.16
+authors: [Seos]
