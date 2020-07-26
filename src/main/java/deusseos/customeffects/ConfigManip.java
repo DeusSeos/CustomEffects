@@ -19,20 +19,19 @@ public class ConfigManip {
 
     public void createMeleeDefaults() {
         String path = "Melee.";
-        List<String> lores = Arrays.asList("- Curses the Enemy", "- Blinds the Enemy", "- Starves the Enemy", "- Slows the Enemy");
+        List<String> lore = Arrays.asList("- Curses the Enemy", "- Blinds the Enemy", "- Starves the Enemy", "- Slows the Enemy");
         List<String> effects = Arrays.asList(".Type", ".Duration", ".Amplifier", ".Ambient", ".Particles");
-        for (String s : lores) {
-            String lore;
-            lore = s;
-            config.createSection(path + lore);
-            config.set(path + lore + effects.get(0), "REGENERATION");
-            config.set(path + lore + effects.get(1), 0);
-            config.set(path + lore + effects.get(2), 0);
-            config.set(path + lore + effects.get(3), false);
-            config.set(path + lore + effects.get(4), false);
+        for (String s : lore) {
+            String stringLore;
+            stringLore = s;
+            config.createSection(path + stringLore);
+            config.set(path + stringLore + effects.get(0), "REGENERATION");
+            config.set(path + stringLore + effects.get(1), 0);
+            config.set(path + stringLore + effects.get(2), 0);
+            config.set(path + stringLore + effects.get(3), false);
+            config.set(path + stringLore + effects.get(4), false);
 
         }
-
     }
 
     public void storeMeleeEffects() {
@@ -75,8 +74,9 @@ public class ConfigManip {
     }
 
      */
+
     public void displayConfig() {
-        for (String key : config.getConfigurationSection("Melee.").getKeys(true)) {
+        for (String key : Objects.requireNonNull(config.getConfigurationSection("Melee.")).getKeys(true)) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + key);
         }
     }

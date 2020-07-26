@@ -1,6 +1,7 @@
 package deusseos.customeffects;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
@@ -9,7 +10,6 @@ import java.util.Hashtable;
 
 /* This is the main class which shall contain only calls to the different supporting classes in order to fetch, store, and apply effects*/
 public final class CustomEffects extends JavaPlugin {
-
 
     public static Hashtable<String, PotionEffect> effectDefaults = new Hashtable<>();
 
@@ -40,6 +40,11 @@ public final class CustomEffects extends JavaPlugin {
 
         saveConfig();
 
+        PluginManager pluginManager = Bukkit.getPluginManager();
+
+        pluginManager.registerEvents(new Melee(), this);
+        //pluginManager.registerEvents(new MeleeAnimation(), this);
+        pluginManager.registerEvents(new MeleeReset(), this);
 
 
 
