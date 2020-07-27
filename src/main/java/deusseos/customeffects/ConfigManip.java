@@ -8,6 +8,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,8 +18,8 @@ public class ConfigManip {
 
     // holds a local reference to the config file of the plugin
 
-    public void createMeleeDefaults() {
-        String path = "Melee.";
+    public void createConfig(String path) {
+        path = path + '.';
         List<String> lore = Arrays.asList("- Curses the Enemy", "- Blinds the Enemy", "- Starves the Enemy", "- Slows the Enemy");
         List<String> effects = Arrays.asList(".Type", ".Duration", ".Amplifier", ".Ambient", ".Particles");
         for (String s : lore) {
@@ -30,12 +31,11 @@ public class ConfigManip {
             config.set(path + stringLore + effects.get(2), 0);
             config.set(path + stringLore + effects.get(3), false);
             config.set(path + stringLore + effects.get(4), false);
-
         }
     }
 
-    public void storeMeleeEffects() {
-        String path = "Melee";
+    public void storeEffects(String path, Hashtable<String, PotionEffect> effectTable) {
+
         String type;
         int duration;
         int amplifier;
@@ -49,7 +49,7 @@ public class ConfigManip {
             amplifier = section.getInt(key + ".Amplifier");
             ambient = section.getBoolean(key + ".Ambient");
             particles = section.getBoolean(key + ".Particles");
-            CustomEffects.effectDefaults.put(key, toPotionType(type, duration, amplifier, ambient, particles));
+            effectTable.put(key, toPotionType(type, duration, amplifier, ambient, particles));
         }
     }
 
@@ -58,22 +58,6 @@ public class ConfigManip {
         effectType = PotionEffectType.getByName(type);
         return new PotionEffect(effectType, duration, amplifier, ambient, particles);
     }
-
-    /*
-    public void createPotions(){
-        ConfigurationSection section = config.getConfigurationSection("Potion");
-        for (String key : Objects.requireNonNull(section.getKeys(false))) {
-            Bukkit.getConsoleSender().sendMessage(key);
-            int duration = section.getInt(key + ".Duration");
-            int amplifier = section.getInt(key + ".Amplifier");
-            boolean ambient = section.getBoolean(key + ".Ambient");
-            int particles = section.getInt(key + ".Particles");
-            Bukkit.getConsoleSender().sendMessage(String.format("%d %d %b %b", duration, amplifier, ambient, particles));
-
-        }
-    }
-
-     */
 
     public void displayConfig() {
         for (String key : Objects.requireNonNull(config.getConfigurationSection("Melee.")).getKeys(true)) {

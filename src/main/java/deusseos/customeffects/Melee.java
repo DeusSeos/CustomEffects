@@ -1,6 +1,5 @@
 package deusseos.customeffects;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -16,31 +15,7 @@ import java.util.List;
 
 public class Melee implements Listener {
 
-
-
-    public List<String> dashList(List<String> lore) {
-        List<String> effectLores = new ArrayList<>();
-        for (String s : lore) {
-            if (s.contains("-"))
-                Bukkit.broadcastMessage("has a dash!   " + s);
-                effectLores.add(ChatColor.stripColor(s));
-        }
-        return effectLores;
-    }
-
-    public void applyEffects(Player receiver, List<String> keys) {
-        for(String s: keys) {
-//            Bukkit.broadcastMessage("checking " + s);
-            if (CustomEffects.effectDefaults.isEmpty()) {
-                return;
-            } else if (!CustomEffects.effectDefaults.containsKey(s)) {
-                return;
-            } else {
-//                Bukkit.broadcastMessage(s);
-                receiver.addPotionEffect(CustomEffects.effectDefaults.get(s));
-            }
-        }
-    }
+    Utils utils = new Utils();
 
     /*
     public String[] metaSplitter (List<String> metaLore){
@@ -78,7 +53,7 @@ public class Melee implements Listener {
                 if (mainHand.hasItemMeta() && mainHand.getItemMeta().hasLore()) {
                     ItemMeta meta = mainHand.getItemMeta();
                     List<String> metaLore = meta.getLore();
-                    applyEffects(receivingPlayer, dashList(metaLore));
+                    utils.applyEffects(receivingPlayer, utils.dashList(metaLore), CustomEffects.meleeEffects);
 
                 } else {
                 }

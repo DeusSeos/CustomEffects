@@ -13,9 +13,8 @@ public class MeleeReset implements Listener {
     public void reset(EntityDamageEvent e){
         if (e.getEntityType() == EntityType.PLAYER){
             Player player = (Player) e.getEntity();
-            player.setNoDamageTicks(5);
+            player.setNoDamageTicks(1);
         }
-        return;
     }
 
 
